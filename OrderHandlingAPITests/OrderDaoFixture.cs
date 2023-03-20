@@ -23,7 +23,14 @@ namespace OrderHandlingAPITests
 
         public IEnumerable<Order> ReadAll()
         {
-            return Enumerable.Empty<Order>();
+            return new List<Order>() { new Order
+                {
+                    Id = 1,
+                    CustomerName = "Hans",
+                    Discount = 0,
+                    State = Order.States.New,
+                }
+            };
         }
 
         public bool Update(Order entity)

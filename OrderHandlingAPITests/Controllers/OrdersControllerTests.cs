@@ -9,12 +9,14 @@ using OrderHandlingAPITests;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using OrderHandlingAPI.Model;
+using CafeManager5000.DataAccess;
+using CafeManager5000.DataAccess.Model;
 
 namespace OrderHandlingAPI.Controllers.Tests
 {
     public class OrdersControllerTests : IClassFixture<OrderDaoFixture>
     {
-        private readonly OrderDaoFixture _orderDao;
+        private readonly IDao<Order> _orderDao;
 
         public OrdersControllerTests(OrderDaoFixture orderDao)
         {
@@ -69,7 +71,13 @@ namespace OrderHandlingAPI.Controllers.Tests
             // Arrange
             OrdersController ctrl = new(_orderDao);
 
-            Assert.True(false, "This test needs an implementation");
+            // Act
+            var response = ctrl.ChangeOrderState(1);
+            var result = response as StatusCodeResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(result?.StatusCode == 200);
         }
     }
 }
